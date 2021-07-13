@@ -1,0 +1,84 @@
+_schema-version: "3.2"
+ID: mta_app
+version: 0.0.1
+modules:
+- name: mta_app-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: mta_app-destination-service
+    parameters:
+      content-target: true
+  - name: mta_app_html_repo_host
+    parameters:
+      service-key:
+        name: mta_app_html_repo_host-key
+  - name: uaa_mta_app
+    parameters:
+      service-key:
+        name: uaa_mta_app-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: sampleservice_mta_app_html_repo_host
+          ServiceInstanceName: mta_app-html5-app-host-service
+          ServiceKeyName: mta_app_html_repo_host-key
+          sap.cloud.service: sampleservice
+        - Authentication: OAuth2UserTokenExchange
+          Name: sampleservice_uaa_mta_app
+          ServiceInstanceName: mta_app-xsuaa-service
+          ServiceKeyName: uaa_mta_app-key
+          sap.cloud.service: sampleservice
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: mta_app_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: mta_app_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - consume_app-content.zip
+      name: consume_app
+      target-path: resources/
+- name: consume_app
+  type: html5
+  path: consume_app
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+resources:
+- name: mta_app-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      version: 1.0.0
+    service: destination
+    service-name: mta_app-destination-service
+    service-plan: lite
+- name: mta_app_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: mta_app-html5-app-host-service
+    service-plan: app-host
+- name: uaa_mta_app
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: mta_app-xsuaa-service
+    service-plan: application
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm install
