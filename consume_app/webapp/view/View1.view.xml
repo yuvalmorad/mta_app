@@ -1,6 +1,6 @@
 <mvc:View controllerName="ns.consume_app.controller.View1"
  xmlns:mvc="sap.ui.core.mvc" 
- xmlns:reuselib="ns.reuselib.control"
+ xmlns:reuselib="ns.reuselib.controls"
  displayBlock="true"
   xmlns="sap.m">
 	<Shell id="shell">
