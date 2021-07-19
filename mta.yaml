@@ -12,14 +12,27 @@ modules:
     parameters:
       service-key:
         name: mta_app_html_repo_host-key
+  - name:  mta_reuselib-html5-app-host-service
+    parameters:
+      service-key:
+        name:  mta_reuselib-html5-app-host
   - name: uaa_mta_app
     parameters:
       service-key:
         name: uaa_mta_app-key
+  - name: reuselib-xsuaa-service
+    parameters:
+      service-key:
+        name: uaa_mta_reuse-key
   parameters:
     content:
       instance:
         destinations:
+        - Authentication: OAuth2UserTokenExchange
+          Name: reuseservice_uaa_mta_app
+          ServiceInstanceName: reuselib-xsuaa-service
+          ServiceKeyName: uaa_mta_reuse-key
+          sap.cloud.service: reuselibservice
         - Name: sampleservice_mta_app_html_repo_host
           ServiceInstanceName: mta_app-html5-app-host-service
           ServiceKeyName: mta_app_html_repo_host-key
@@ -29,6 +42,10 @@ modules:
           ServiceInstanceName: mta_app-xsuaa-service
           ServiceKeyName: uaa_mta_app-key
           sap.cloud.service: sampleservice
+        - Name: mta_reuselib-html5-app-host-service
+          ServiceInstanceName: mta_reuselib-html5-app-host-service
+          ServiceKeyName:  mta_reuselib-html5-app-host
+          sap.cloud.service: reuselibservice
         existing_destinations_policy: ignore
   build-parameters:
     no-source: true
@@ -70,6 +87,21 @@ resources:
     service: html5-apps-repo
     service-name: mta_app-html5-app-host-service
     service-plan: app-host
+- name:  mta_reuselib-html5-app-host-service
+  type: org.cloudfoundry.existing-service
+  parameters:
+    service: html5-apps-repo
+    service-name: mta_reuselib-html5-app-host-service
+    service-plan: app-host
+
+
+- name: reuselib-xsuaa-service
+  type: org.cloudfoundry.existing-service
+  parameters:
+    service: xsuaa
+    service-name: reuselib-xsuaa-service
+    service-plan: application
+
 - name: uaa_mta_app
   type: org.cloudfoundry.managed-service
   parameters:

@@ -7,12 +7,16 @@
 		<script id="sap-ui-bootstrap"
 			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
 			data-sap-ui-theme="sap_belize"
-			data-sap-ui-resourceroots='{"ns.consume_app": "./", "ns.reuselib": "/sampleservice.nsreuselib"}'
+			data-sap-ui-resourceroots='{"ns.consume_app": "./"}'
 			data-sap-ui-compatVersion="edge"
 			data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
 			data-sap-ui-async="true"
 			data-sap-ui-frameOptions="trusted">
-		</script>
+        </script>
+        <script>
+            var destGuid = location.pathname.split(".")[0];
+            jQuery.sap.registerModulePath("ns.reuselib",destGuid+".reuselibservice.nsreuselib" )
+        </script>
 	</head>
 	<body class="sapUiBody">
 		<div data-sap-ui-component data-name="ns.consume_app" data-id="container" data-settings='{"id" : "consume_app"}'></div>
