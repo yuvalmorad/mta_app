@@ -8,9 +8,9 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "object1",
-                    "action": "action1",
-                    "title": "Consum_Reuse",
+                    "semanticObject": "ConsumeApp",
+                    "action": "Display",
+                    "title": "ConsumReuse",
                     "subTitle": "app"
                 }
             }
@@ -21,8 +21,8 @@
         "applicationVersion": {
             "version": "1.0.0"
         },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
+        "title": "ConsumeApp",
+        "description": "Description",
         "resources": "resources.json",
         "ach": "ach",
         "sourceTemplate": {
@@ -31,7 +31,8 @@
         }
     },
     "sap.cloud": {
-        "service": "sampleservice"
+        "service": "sampleservice",
+        "public":true
     },
     "sap.ui": {
         "technology": "UI5",
