@@ -32,7 +32,7 @@
     },
     "sap.cloud": {
         "service": "sampleservice",
-        "public":true
+        "public": true
     },
     "sap.ui": {
         "technology": "UI5",
