@@ -2,9 +2,9 @@
   "name": "mta_app",
   "version": "0.0.1",
   "devDependencies": {
-    "@sap/approuter": "^10.5.0",
+    "@sap/approuter": "^10.9.0",
     "@sap/eslint-plugin-ui5-jsdocs": "2.0.x",
-    "@sap/html5-repo-mock": "^2.0.3",
+    "@sap/html5-repo-mock": "^2.1.0",
     "@sap/ui5-builder-webide-extension": "1.0.x",
     "@sapui5/ts-types": "1.71.x",
     "@ui5/cli": "2.2.6",
